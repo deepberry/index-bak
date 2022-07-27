@@ -55,19 +55,19 @@ export default {
                 {
                     homepage: "https://admin.deepberry.cn/vue3-element-extend",
                     description: "拓展组件库",
-                    name: "vue3-element-extend",
+                    name: "extend ui",
                     icon: "element",
                 },
                 {
                     homepage: "https://admin.deepberry.cn/vue3-element-extend",
-                    description: "拓展组件库",
-                    name: "vue3-element-extend",
+                    description: "蓝湖产品原型",
+                    name: "product",
                     icon: "lanhu",
                 },
                 {
-                    homepage: "https://admin.deepberry.cn/vue3-element-extend",
-                    description: "拓展组件库",
-                    name: "vue3-element-extend",
+                    homepage: "https://wiki.deepberry.cn",
+                    description: "深莓知识库",
+                    name: "documents",
                     icon: "wiki",
                 },
             ],
@@ -114,6 +114,9 @@ export default {
 </script>
 
 <style lang="less">
+body {
+    background-color: #fafbfc;
+}
 .p-index {
     @import "@/assets/css/index.less";
 }
