@@ -1,14 +1,14 @@
 <template>
     <div class="p-index">
-        <img class="index-logo" :src="logo" alt="深莓智能" />
-        <h1 class="index-title">DeepBerry Dashboard</h1>
+        <img class="m-logo" :src="logo" alt="深莓智能" />
+        <h1 class="m-title">DeepBerry Dashboard</h1>
 
-        <div class="index-box wp">
-            <div class="index-panel">
+        <div class="m-box wp">
+            <div class="m-panel">
                 <div class="u-msg">🌀 全局公告</div>
                 <div class="u-setting"></div>
             </div>
-            <ul class="index-applications">
+            <ul class="m-applications">
                 <li class="u-item" v-for="item in data" :key="item.name">
                     <a class="u-link" :href="item.homepage" target="_blank">
                         <img class="u-icon" :src="getAppIcon(item.icon)" />
@@ -58,6 +58,18 @@ export default {
                     name: "vue3-element-extend",
                     icon: "element",
                 },
+                {
+                    homepage: "https://admin.deepberry.cn/vue3-element-extend",
+                    description: "拓展组件库",
+                    name: "vue3-element-extend",
+                    icon: "lanhu",
+                },
+                {
+                    homepage: "https://admin.deepberry.cn/vue3-element-extend",
+                    description: "拓展组件库",
+                    name: "vue3-element-extend",
+                    icon: "wiki",
+                },
             ],
         };
     },
@@ -91,6 +103,7 @@ export default {
                 });
         },
         getAppIcon(slug) {
+            // return `temp/${slug}.svg`;
             return getCdnLink(`img/common/apps/${slug}.svg`);
         },
     },
@@ -101,5 +114,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/index.less";
+.p-index {
+    @import "@/assets/css/index.less";
+}
 </style>
