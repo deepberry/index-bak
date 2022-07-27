@@ -14,8 +14,8 @@ const app = createApp(App);
 // const head = createHead()
 // app.use(head)
 
-// import router from './router/index';
-// app.use(router)
+import router from "./router/index";
+app.use(router);
 
 // import store from './store/index';
 // app.use(store)
