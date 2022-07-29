@@ -1,4 +1,10 @@
-// project less root
+body {
+    background-color: #fafbfc;
+}
+.p-index {
+    padding: 0 50px;
+}
+
 .m-logo {
     padding-top: 100px;
     width: 100px;
@@ -87,5 +93,10 @@
 @media screen and (max-width: 1000px) {
     .m-applications {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 720px) {
+    .p-index {
+        padding: 0;
     }
 }

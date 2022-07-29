@@ -9,12 +9,12 @@
                 <div class="u-setting"></div>
             </div>
             <ul class="m-applications">
-                <li class="u-item" v-for="item in data" :key="item.name">
-                    <a class="u-link" :href="item.homepage" target="_blank">
-                        <img class="u-icon" :src="getAppIcon(item.icon)" />
+                <li class="u-item" v-for="(item, i) in data" :key="i">
+                    <a class="u-link" :href="item.link" target="_blank">
+                        <img class="u-icon" :src="getAppIcon(item)" />
                         <span class="u-desc">
-                            {{ item.description }}
-                            <em>{{ item.name }}</em>
+                            {{ item.name }}
+                            <em>{{ item.desc }}</em>
                         </span>
                     </a>
                 </li>
@@ -25,86 +25,39 @@
 
 <script>
 import { getCdnLink } from "@deepberry/common/js/utils";
-const api = "https://api.github.com/orgs/deepberry/repos";
+import { getDashboardList } from "@/service/index";
 export default {
     name: "App",
     props: [],
     components: {},
     data: function () {
         return {
-            list: [],
-            misc: [
-                {
-                    homepage: "http://office.deepberry.cn:8888",
-                    description: "Jenkins",
-                    name: "Jenkins",
-                    icon: "jenkins",
-                },
-                {
-                    homepage: "http://39.103.226.204:8888/ospanel",
-                    description: "FE运维面板",
-                    name: "Bt-Panel",
-                    icon: "bt",
-                },
-                {
-                    homepage: "https://github.com/deepberry",
-                    description: "GitHub仓库",
-                    name: "GitHub",
-                    icon: "github",
-                },
-                {
-                    homepage: "https://admin.deepberry.cn/vue3-element-extend",
-                    description: "拓展组件库",
-                    name: "extend ui",
-                    icon: "element",
-                },
-                {
-                    homepage: "https://admin.deepberry.cn/vue3-element-extend",
-                    description: "蓝湖产品原型",
-                    name: "product",
-                    icon: "lanhu",
-                },
-                {
-                    homepage: "https://wiki.deepberry.cn",
-                    description: "深莓知识库",
-                    name: "documents",
-                    icon: "wiki",
-                },
-            ],
+            data: [],
+            isDev: process.env.NODE_ENV === "development",
         };
     },
     computed: {
-        data: function () {
-            return this.list.concat(this.misc);
-        },
         logo: function () {
             return getCdnLink("img/common/logo/blue.svg");
         },
     },
     watch: {},
     methods: {
-        load() {
-            fetch(api, {
-                headers: {
-                    Authorization: "token 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",
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    let list = [];
-                    for (let item of data) {
-                        if (item.homepage && item.name != "FE-index") {
-                            let _name = item.name.startsWith("FE-") ? item.name.split("-")[1] : item.name;
-                            item.icon = _name.toLowerCase();
-                            list.push(item);
-                        }
-                    }
-                    this.list = list;
-                });
+        async load() {
+            getDashboardList().then((res) => {
+                this.data = res.data?.data || [];
+            });
         },
-        getAppIcon(slug) {
-            // return `temp/${slug}.svg`;
-            return getCdnLink(`img/common/apps/${slug}.svg`);
+        getAppIcon(item) {
+            if (this.isDev) {
+                return `/temp/${item.slug}.svg`;
+            } else {
+                if (item.icon) {
+                    return getCdnLink(item.icon);
+                } else {
+                    return getCdnLink(`img/common/apps/${item.slug}.svg`);
+                }
+            }
         },
     },
     mounted: function () {
@@ -114,10 +67,5 @@ export default {
 </script>
 
 <style lang="less">
-body {
-    background-color: #fafbfc;
-}
-.p-index {
-    @import "@/assets/css/index.less";
-}
+@import "@/assets/css/index.less";
 </style>
