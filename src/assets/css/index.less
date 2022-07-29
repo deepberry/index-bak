@@ -29,14 +29,21 @@ body {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 .m-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #f7f7f7;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding: 6px 10px;
+    font-size: 14px;
+    color: #666;
 
     .u-msg {
-        font-size: 14px;
-        color: #666;
+        color: #456;
+    }
+    .u-setting {
+        cursor: pointer;
     }
 }
 .m-applications {
@@ -79,6 +86,11 @@ body {
             font-size: 12px;
         }
     }
+}
+
+.m-groupList {
+    width: 80px !important;
+    min-width: auto !important;
 }
 @media screen and (max-width: 1680px) {
     .m-applications {
