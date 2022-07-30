@@ -7,16 +7,22 @@
             <div class="m-panel">
                 <div class="u-msg">🌀 全局公告</div>
                 <div class="u-setting">
-                    <el-popover placement="bottom" trigger="hover" popper-class="m-groupList">
-                        <template #reference>筛选组别 ⇅</template>
-                        <el-checkbox-group v-model="groupList">
-                            <el-checkbox :label="item" v-for="(item, key) in groups" :key="key" />
+                    <el-popover placement="bottom" trigger="hover" popper-class="m-filter">
+                        <template #reference
+                            ><span class="u-filter"
+                                ><img src="@/assets/img/filter.svg" alt="过滤" />筛选</span
+                            ></template
+                        >
+                        <el-checkbox-group v-model="groups" label="key" @change="customGroup">
+                            <el-checkbox :label="key" v-for="(label, key) in groupOptions" :key="key">
+                                {{ label }} <em>({{ key }})</em>
+                            </el-checkbox>
                         </el-checkbox-group>
                     </el-popover>
                 </div>
             </div>
             <ul class="m-applications">
-                <li class="u-item" v-for="(item, i) in list" :key="i">
+                <li class="u-item" v-for="(item, i) in data" :key="i" v-show="isMatched(item)">
                     <a class="u-link" :href="item.link" target="_blank">
                         <img class="u-icon" :src="getAppIcon(item)" />
                         <span class="u-desc">
@@ -33,7 +39,7 @@
 <script>
 import { getCdnLink } from "@deepberry/common/js/utils";
 import { getDashboardList } from "@/service/index";
-
+import { toRaw } from "vue";
 export default {
     name: "App",
     props: [],
@@ -42,12 +48,11 @@ export default {
         return {
             data: [],
             isDev: process.env.NODE_ENV === "development",
-            group_list: [],
-            groupList: [],
-            groups: {
+            groups: ["common", "developer", "operator"],
+            groupOptions: {
                 common: "默认",
                 developer: "开发",
-                production: "产品",
+                // production: "产品",
                 operator: "运营",
             },
         };
@@ -56,28 +61,11 @@ export default {
         logo: function () {
             return getCdnLink("img/common/logo/blue.svg");
         },
-        list: function () {
-            return this.groupList.length ? this.group_list : this.data;
-        },
-    },
-    watch: {
-        groupList: {
-            depp: true,
-            immediate: true,
-            handler: function (arr) {
-                arr.length
-                    ? localStorage.setItem("dashboard_active", JSON.stringify(arr))
-                    : localStorage.removeItem('"dashboard_active"');
-                if (this.data) this.group_list = this.data.filter((item) => arr.includes(this.groups[item.group]));
-            },
-        },
     },
     methods: {
         async load() {
             getDashboardList().then((res) => {
                 this.data = res.data?.data || [];
-                const list = JSON.parse(localStorage.getItem("dashboard_active"));
-                if (list.length) this.groupList = list;
             });
         },
         getAppIcon(item) {
@@ -91,9 +79,22 @@ export default {
                 }
             }
         },
+        isMatched(item) {
+            return this.groups.includes(item.group);
+        },
+        customGroup() {
+            localStorage.setItem("dashboard_active", toRaw(this.groups));
+        },
+        init() {
+            let customFilterGroups = localStorage.getItem("dashboard_active");
+            if (customFilterGroups) {
+                this.groups = customFilterGroups.split(",");
+            }
+        },
     },
     mounted: function () {
         this.load();
+        this.init();
     },
 };
 </script>
