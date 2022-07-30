@@ -3,6 +3,10 @@
         <img class="m-logo" :src="logo" alt="深莓智能" />
         <h1 class="m-title">DeepBerry Dashboard</h1>
 
+        <div class="m-sso wp">
+            <el-button type="primary" size="large" disabled>SSO一键全平台登录</el-button>
+        </div>
+
         <div class="m-box wp">
             <div class="m-panel">
                 <div class="u-msg">🌀 全局公告</div>
