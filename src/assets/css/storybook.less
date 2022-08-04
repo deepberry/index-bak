@@ -1,0 +1,35 @@
+.m-storybook-list {
+    padding: 80px;
+    .u-item {
+        list-style: none;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+
+        * {
+            .db;
+        }
+
+        b {
+            .fz(32px);
+        }
+
+        em {
+            color: #999;
+            .fz(15px,2);
+            .mb(20px);
+        }
+
+        a {
+            .fz(16px,2);
+            color: @primary;
+            &:hover {
+                color: #f56c6c;
+            }
+            &::before {
+                content: "💠";
+                margin-right: 5px;
+            }
+        }
+    }
+}
