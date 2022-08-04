@@ -17,3 +17,7 @@ export default {
     mounted: function () {},
 };
 </script>
+
+<style lang="less">
+@import "./assets/css/app.less";
+</style>

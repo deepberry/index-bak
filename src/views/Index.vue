@@ -1,7 +1,6 @@
 <template>
     <div class="p-index">
-        <img class="m-logo" :src="logo" alt="深莓智能" />
-        <h1 class="m-title">DeepBerry Dashboard</h1>
+        <Header />
 
         <div class="m-sso wp">
             <el-button type="primary" size="large" disabled>SSO一键全平台登录</el-button>
@@ -44,10 +43,11 @@
 import { getCdnLink } from "@deepberry/common/js/utils";
 import { getDashboardList } from "@/service/index";
 import { toRaw } from "vue";
+import Header from "@/components/header.vue";
 export default {
     name: "App",
     props: [],
-    components: {},
+    components: { Header },
     data: function () {
         return {
             data: [],
@@ -61,11 +61,7 @@ export default {
             },
         };
     },
-    computed: {
-        logo: function () {
-            return getCdnLink("img/common/logo/blue.svg");
-        },
-    },
+    computed: {},
     methods: {
         async load() {
             getDashboardList().then((res) => {
