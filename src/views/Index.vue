@@ -76,7 +76,7 @@ export default {
         },
         loadAnnouncement() {
             getAnnouncement("index").then((res) => {
-                this.announcement = res.data.data.val;
+                this.announcement = !!res.data?.data?.status && res.data?.data?.val;
             });
         },
         getAppIcon(item) {
