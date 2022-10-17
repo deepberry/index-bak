@@ -9,8 +9,10 @@
         <div class="m-box wp">
             <div class="m-panel">
                 <div class="u-msg">
-                    <span class="u-label">🌀 全局公告:</span>
-                    <div v-if="announcement" v-html="announcement"></div>
+                    <template v-if="announcement">
+                        <span class="u-label">🌀 最新消息</span>
+                        <span class="u-value" v-html="announcement"></span>
+                    </template>
                 </div>
                 <div class="u-setting">
                     <el-popover placement="bottom" trigger="hover" popper-class="m-filter">
@@ -78,7 +80,7 @@ export default {
             });
         },
         getAppIcon(item) {
-            if (!this.isDev) {
+            if (this.isDev) {
                 return `/temp/${item.slug}.svg`;
             } else {
                 if (item.icon) {
