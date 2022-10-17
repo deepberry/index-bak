@@ -12,11 +12,23 @@
     padding: 6px 10px;
     font-size: 14px;
     color: #666;
+    gap: 20px;
 
     .u-msg {
         color: #456;
+        .flex;
+        gap: 10px;
+        align-items: baseline;
+        .u-label {
+            flex-shrink: 0;
+        }
+        a {
+            text-decoration: underline;
+            .color(#409eff);
+        }
     }
     .u-setting {
+        flex-shrink: 0;
         cursor: pointer;
     }
     .u-filter {

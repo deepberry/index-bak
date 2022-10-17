@@ -4,4 +4,12 @@ function getDashboardList() {
     return $cms().get("/api/cms/misc/dashboard");
 }
 
-export { getDashboardList };
+function getAnnouncement(key) {
+    return $cms().get(`/api/cms/misc/announcement`, {
+        params: {
+            key,
+        },
+    });
+}
+
+export { getDashboardList, getAnnouncement };

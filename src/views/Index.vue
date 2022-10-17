@@ -8,7 +8,10 @@
 
         <div class="m-box wp">
             <div class="m-panel">
-                <div class="u-msg">🌀 全局公告</div>
+                <div class="u-msg">
+                    <span class="u-label">🌀 全局公告:</span>
+                    <div v-if="announcement" v-html="announcement"></div>
+                </div>
                 <div class="u-setting">
                     <el-popover placement="bottom" trigger="hover" popper-class="m-filter">
                         <template #reference
@@ -41,7 +44,7 @@
 
 <script>
 import { getCdnLink } from "@deepberry/common/js/utils";
-import { getDashboardList } from "@/service/index";
+import { getDashboardList, getAnnouncement } from "@/service/index";
 import { toRaw } from "vue";
 import Header from "@/components/header.vue";
 export default {
@@ -59,6 +62,7 @@ export default {
                 // production: "产品",
                 operator: "运营",
             },
+            announcement: "",
         };
     },
     computed: {},
@@ -68,8 +72,13 @@ export default {
                 this.data = res.data?.data || [];
             });
         },
+        loadAnnouncement() {
+            getAnnouncement("index").then((res) => {
+                this.announcement = res.data.data.val;
+            });
+        },
         getAppIcon(item) {
-            if (this.isDev) {
+            if (!this.isDev) {
                 return `/temp/${item.slug}.svg`;
             } else {
                 if (item.icon) {
@@ -94,6 +103,7 @@ export default {
     },
     mounted: function () {
         this.load();
+        this.loadAnnouncement();
         this.init();
     },
 };
