@@ -81,13 +81,9 @@ export default {
         },
         getAppIcon(item) {
             if (this.isDev) {
-                return `/temp/${item.slug}.svg`;
+                return `/temp/${item.icon}.svg`;
             } else {
-                if (item.icon) {
-                    return getCdnLink(item.icon);
-                } else {
-                    return getCdnLink(`img/common/apps/${item.slug}.svg`);
-                }
+                return getCdnLink(`img/common/apps/${item.icon}.svg`);
             }
         },
         isMatched(item) {
